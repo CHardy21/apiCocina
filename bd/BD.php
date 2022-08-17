@@ -1,15 +1,8 @@
 <?php
+
+include("config.php");
+
 $pdo=null;
-
-date_default_timezone_set ('America/Argentina/Buenos_Aires');
-
-////// HOST REMOTO /////
-$db_host 	= "localhost";
-$db_name 	= "cocin23_2197";
-$db_user	= "cocin23_chardy";
-$db_pass 	= "T3nk@nH0_21";
-$db_type 	= "MySQL";
-$db_charset = "UTF8";
 
 function conectar(){
     try{
