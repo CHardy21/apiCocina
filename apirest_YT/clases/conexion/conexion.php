@@ -1,7 +1,6 @@
 <?php
 
 
-
 class conexion {
 
     private $server;
@@ -23,7 +22,7 @@ class conexion {
         }
         $this->conexion = new mysqli($this->server,$this->user,$this->password,$this->database,$this->port);
         if($this->conexion->connect_errno){
-            echo "algo va mal con la conexion";
+            echo "Algo va mal con la conexion";
             die();
         }
 
@@ -81,12 +80,6 @@ class conexion {
         return md5($string);
     }
 
-
-
-
-
 }
-
-
 
 ?>

@@ -7,11 +7,11 @@ class auth extends conexion{
 
     public function login($json){
       
-        $_respustas = new respuestas;
+        $_respuestas = new respuestas;
         $datos = json_decode($json,true);
         if(!isset($datos['usuario']) || !isset($datos["password"])){
             //error con los campos
-            return $_respustas->error_400();
+            return $_respuestas->error_400();
         }else{
             //todo esta bien 
             $usuario = $datos['usuario'];
@@ -20,42 +20,42 @@ class auth extends conexion{
             $datos = $this->obtenerDatosUsuario($usuario);
             if($datos){
                 //verificar si la contraseña es igual
-                    if($password == $datos[0]['Password']){
-                            if($datos[0]['Estado'] == "Activo"){
+                    if($password == $datos[0]['userPassword']){
+                            if($datos[0]['userStatus'] == "1"){
                                 //crear el token
-                                $verificar  = $this->insertarToken($datos[0]['UsuarioId']);
+                                $verificar  = $this->insertarToken($datos[0]['userId']);
                                 if($verificar){
                                         // si se guardo
-                                        $result = $_respustas->response;
+                                        $result = $_respuestas->response;
                                         $result["result"] = array(
                                             "token" => $verificar
                                         );
                                         return $result;
                                 }else{
                                         //error al guardar
-                                        return $_respustas->error_500("Error interno, No hemos podido guardar");
+                                        return $_respuestas->error_500("Error interno, No hemos podido guardar");
                                 }
                             }else{
                                 //el usuario esta inactivo
-                                return $_respustas->error_200("El usuario esta inactivo");
+                                return $_respuestas->error_200("El usuario esta inactivo");
                             }
                     }else{
                         //la contraseña no es igual
-                        return $_respustas->error_200("El password es invalido");
+                        return $_respuestas->error_200("El password es invalido");
                     }
             }else{
                 //no existe el usuario
-                return $_respustas->error_200("El usuaro $usuario  no existe ");
+                return $_respuestas->error_200("El usuaro $usuario  no existe ");
             }
         }
     }
 
 
 
-    private function obtenerDatosUsuario($correo){
-        $query = "SELECT UsuarioId,Password,Estado FROM usuarios WHERE Usuario = '$correo'";
+    private function obtenerDatosUsuario($usuario){
+        $query = "SELECT userId,userName,userPassword,userStatus FROM users WHERE userName = '$usuario'";
         $datos = parent::obtenerDatos($query);
-        if(isset($datos[0]["UsuarioId"])){
+        if(isset($datos[0]["userId"])){
             return $datos;
         }else{
             return 0;
@@ -67,9 +67,12 @@ class auth extends conexion{
         $val = true;
         $token = bin2hex(openssl_random_pseudo_bytes(16,$val));
         $date = date("Y-m-d H:i");
-        $estado = "Activo";
-        $query = "INSERT INTO usuarios_token (UsuarioId,Token,Estado,Fecha)VALUES('$usuarioid','$token','$estado','$date')";
+        $estado = "1";
+        //$query = "INSERT INTO users_token (tokenUserId,Token,tokenStatus,Fecha)VALUES('$usuarioid','$token','$estado','$date')";
+        $query = "INSERT INTO users_tokens (tokenId, tokenUserId, token, tokenStatus, tokenCreateAt)VALUES(NULL,'$usuarioid','$token','$estado',current_timestamp()	)";
+
         $verifica = parent::nonQuery($query);
+        
         if($verifica){
             return $token;
         }else{
