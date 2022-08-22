@@ -7,6 +7,18 @@ $_productos = new products;
 
 
 if($_SERVER['REQUEST_METHOD'] == "GET"){
+
+    //   * Esta solicitud devuelve el detalle del producto indicado segun su ID
+    //     http://url.com/apirest/products?id=1
+
+    if(isset($_GET['id'])){
+        $productoid = $_GET['id'];
+        $datosProducto = $_productos->getProduct($productoid);
+        header("Content-Type: application/json");
+        echo json_encode($datosProducto);
+        http_response_code(200);
+    }
+
     // Aqui vamos a listar los productos en base a los PARAMETROS enviados desde la app
     //  * Esta solicitud devuelve la pagina solicitada con un cantidad de registros indicada en pageSize
     //    Si pageSize no es enviada su valor por defecto es 10.
@@ -28,19 +40,9 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         } else {
             $cantidad = 10;
         }
-        $listaProductos = $_productos->productsList($pagina, $cantidad);
+        $listaProductos = $_productos->getProductsList($pagina, $cantidad);
         header("Content-Type: application/json");
         echo json_encode($listaProductos);
-        http_response_code(200);
-
-    //   * Esta solicitud devuelve el detalle del producto indicado segun su ID
-    //     http://url.com/apirest/products?id=1
-
-    }else if(isset($_GET['id'])){
-        $productoid = $_GET['id'];
-        $datosProducto = $_productos->getProduct($productoid);
-        header("Content-Type: application/json");
-        echo json_encode($datosProducto);
         http_response_code(200);
     }
     

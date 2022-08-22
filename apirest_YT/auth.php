@@ -6,17 +6,25 @@ require_once 'clases/respuestas.class.php';
 $_auth = new auth;
 $_respuestas = new respuestas;
 
-
+// Para inicar session en la app y tener acceso a la api se deben enviar el USUARIO y su PASWORD
+// a traves del PstBody en formato JSON a la direccion:
+// http://http://url.com/apirest/auth
+//
+//      POST /auth
+//      {
+//          "usuario" :"", -> REQUERIDO
+//          "password": "" -> REQUERIDO
+//      }
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
 
-    //recibir datos
+    // Recibiendo los datos
     $postBody = file_get_contents("php://input");
 
-    //enviamos los datos al manejador
+    // Enviamos los datos al manejador
     $datosArray = $_auth->login($postBody);
 
-    //delvolvemos una respuesta
+    // Devolvemos una respuesta
     header('Content-Type: application/json');
     if(isset($datosArray["result"]["error_id"])){
         $responseCode = $datosArray["result"]["error_id"];

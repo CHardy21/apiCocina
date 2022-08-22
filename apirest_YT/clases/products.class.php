@@ -5,7 +5,6 @@ require_once "respuestas.class.php";
 
 class products extends conexion {
 
-    private $table = "products";
     private $pacienteid = "";
     private $dni = "";
     private $nombre = "";
@@ -15,11 +14,37 @@ class products extends conexion {
     private $telefono = "";
     private $fechaNacimiento = "0000-00-00";
     private $correo = "";
-    private $token = "";
-//912bc00f049ac8464472020c5cd06759
 
-    public function productsList($pagina = 1, $cantidad = 10){
+//912bc00f049ac8464472020c5cd06759
+    private $table = "products";
+    private $productoId= "";
+    private $productoNombre = "";
+    private $productoNombreBuscaar = "";
+    private $productoImagen = "";          
+    private $productoCategoria = "";
+    private $productoUnidad = "";
+    private $productoCosto = "";
+    private $productoImportaCosto = "";
+    private $productoPrecio = "";
+    private $productoProductoPrecioNegativo = "";
+    private $productoInventario = "";
+    private $productoInvetarioInfinito = "";
+    private $productoDescripcion = "";
+    private $productoSucursal = "";
+    private $productoIncluyeImpuesto = "";
+    private $productoActivo = "";
+    private $productoUpdateAt = "";
+    private $productoUpdateUsuario = "";
+    private $token = "";
+    
+
+    public function GetProductsList($categoria = 0, $pagina = 1, $cantidad = 10){
         $inicio  = 0 ;
+        $filtro = "";
+        $limit = ""; // " limit $inicio,$cantidad"
+
+        if ($categoria != 0 ){ $filtro = " WHERE categorie = '$categoria' ";};
+
         if($pagina > 1){
             $inicio = ($cantidad * ($pagina - 1)) +1 ;
             $cantidad = $cantidad * $pagina;
@@ -44,7 +69,7 @@ class products extends conexion {
                     prod_active, 
                     prod_update, 
                     prod_update_user
-                FROM " . $this->table . " limit $inicio,$cantidad";
+                FROM " . $this->table . $filtro . $limit;
         $datos = parent::obtenerDatos($query);
         return ($datos);
     }
