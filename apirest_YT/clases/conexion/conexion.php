@@ -45,7 +45,7 @@ class conexion {
     }
 
 
-    public function obtenerDatos($sqlstr){
+    public function getDatos($sqlstr){
         $results = $this->conexion->query($sqlstr);
         $resultArray = array();
         foreach ($results as $key) {
@@ -80,6 +80,18 @@ class conexion {
         return md5($string);
     }
 
+    public function formatData($status,$valor,$data){
+        if($status=="ok"){
+            $this->response['status'] = $status;
+            $this->response['totalResults'] = $valor;
+            $this->response['item'] = $data;
+        }else{
+            $this->response['status'] = "error";
+            $this->response['code'] = $valor;
+            $this->response['message'] = $data;
+        }
+        return $this->response;
+    }
 }
 
 ?>

@@ -7,7 +7,7 @@ $_auth = new auth;
 $_respuestas = new respuestas;
 
 // Para inicar session en la app y tener acceso a la api se deben enviar el USUARIO y su PASWORD
-// a traves del PstBody en formato JSON a la direccion:
+// a traves del PostBody en formato JSON a la direccion:
 // http://http://url.com/apirest/auth
 //
 //      POST /auth

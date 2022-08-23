@@ -76,14 +76,18 @@ class products extends conexion {
                     prod_update_user
                 FROM " . $this->table . $filtro . $limit;
 
-                //print_r($query);
-        $datos = parent::obtenerDatos($query);
+        //print_r($query);
+        $query2 = "SELECT * FROM " . $this->table . $filtro ;
+        //print_r($query2);
+        $datos = parent::getDatos($query);
+        $totalResults = parent::nonQuery($query2);
+        $datos = parent::formatData("ok", $totalResults,$datos);
         return ($datos);
     }
 
     public function getProduct($id){
         $query = "SELECT * FROM " . $this->table . " WHERE prod_id = '$id'";
-        $datos = parent::obtenerDatos($query);
+        $datos = parent::getDatos($query);
         return ($datos);
 
     }
@@ -253,7 +257,7 @@ class products extends conexion {
 
     private function buscarToken(){
         $query = "SELECT  TokenId,UsuarioId,Estado from usuarios_token WHERE Token = '" . $this->token . "' AND Estado = 'Activo'";
-        $resp = parent::obtenerDatos($query);
+        $resp = parent::getDatos($query);
         if($resp){
             return $resp;
         }else{

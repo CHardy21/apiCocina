@@ -17,7 +17,7 @@ class auth extends conexion{
             $usuario = $datos['usuario'];
             $password = $datos['password'];
             $password = parent::encriptar($password);
-            $datos = $this->obtenerDatosUsuario($usuario);
+            $datos = $this->getDatosUsuario($usuario);
             if($datos){
                 //verificar si la contraseña es igual
                     if($password == $datos[0]['userPassword']){
@@ -52,9 +52,9 @@ class auth extends conexion{
 
 
 
-    private function obtenerDatosUsuario($usuario){
-        $query = "SELECT userId,userName,userPassword,userStatus FROM users WHERE userName = '$usuario'";
-        $datos = parent::obtenerDatos($query);
+    private function getDatosUsuario($usuario){
+        $query = "SELECT * FROM users WHERE userName = '$usuario'";
+        $datos = parent::getDatos($query);
         if(isset($datos[0]["userId"])){
             return $datos;
         }else{
