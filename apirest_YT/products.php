@@ -10,41 +10,48 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 
     //   * Esta solicitud devuelve el detalle del producto indicado segun su ID
     //     http://url.com/apirest/products?id=1
-
     if(isset($_GET['id'])){
         $productoid = $_GET['id'];
         $datosProducto = $_productos->getProduct($productoid);
         header("Content-Type: application/json");
         echo json_encode($datosProducto);
         http_response_code(200);
-    }
 
     // Aqui vamos a listar los productos en base a los PARAMETROS enviados desde la app
-    //  * Esta solicitud devuelve la pagina solicitada con un cantidad de registros indicada en pageSize
-    //    Si pageSize no es enviada su valor por defecto es 10.
-    //    http://url.com/apirest/products?page=1&pageSize=10
+    // Esta solicitud devuelve la pagina solicitada segun la categoria (categ) seleccionada
+    // con una cantidad de registros indicada en pageSize.
+    //   * si categ no es enviada su valor por defecto es 0 y se listarian todos los item existentes
+    //   * Si page no es enviada su valor por defecto en 1.
+    //   * Si pageSize no es enviada su valor por defecto es 10.
+    //   * si categ es enviada y requiere listar la totalidad de item especifique pageSize=all 
 
     //    http://url.com/apirest/products?categ=1&page=1&pageSize=10
 
-    if(isset($_GET["categ"])){
+    }else if(isset($_GET["categ"])){
         $categoria = $_GET["categ"];
-    } else {
-        $categoria=0;
-    }
+        $pagina = 1;
+        $cantidad = 10;
 
+        if(isset($_GET["page"])){ $pagina = $_GET["page"]; }
+        if(isset($_GET["pageSize"])){ $cantidad = $_GET["pageSize"]; }
 
-    if(isset($_GET["page"])){
-        $pagina = $_GET["page"];
-        if(isset($_GET["pageSize"])){ 
-            $cantidad = $_GET["pageSize"];
-        } else {
-            $cantidad = 10;
-        }
-        $listaProductos = $_productos->getProductsList($pagina, $cantidad);
+        //print_r("Categoria = ".$categoria." Pagina = ".$pagina." Cantidad = ".$cantidad." " );
+
+        $listaProductos = $_productos->getProductsList( $categoria, $pagina, $cantidad );
         header("Content-Type: application/json");
         echo json_encode($listaProductos);
         http_response_code(200);
-    }
+
+        } else {
+            // revisar estas lineas ... para ver si son necesarias
+            // $categoria=0;
+            // $pagina=0;
+            // $cantidad=0;
+            // $listaProductos = $_productos->getProductsList( $categoria, $pagina, $cantidad );
+            // header("Content-Type: application/json");
+            // echo json_encode($listaProductos);
+            // http_response_code(200);
+        }
     
 }else if($_SERVER['REQUEST_METHOD'] == "POST"){
     //recibimos los datos enviados

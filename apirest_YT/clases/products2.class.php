@@ -38,22 +38,17 @@ class products extends conexion {
     private $token = "";
     
 
-    public function getProductsList($categoria = 0, $pagina = 1, $cantidad = 10){
+    public function GetProductsList($categoria = 0, $pagina = 1, $cantidad = 10){
         $inicio  = 0 ;
-        $filtro = ""; // " WHERE categorie = '$categoria' "
-        $limit = "";  // " limit $inicio,$cantidad"
+        $filtro = "";
+        $limit = ""; // " limit $inicio,$cantidad"
 
-        // paginacion de resultados
-        if ($pagina > 1){ $inicio = ($cantidad * ($pagina - 1)) ;}
-        $limit = " limit $inicio,$cantidad";
+        if ($categoria != 0 ){ $filtro = " WHERE categorie = '$categoria' ";};
 
-        if ($categoria != 0 ){ 
-            $filtro = " WHERE prod_categ = '$categoria' ";
-            if($cantidad == "all") { $limit ="";}
-        }else{
-            $limit="";
-        };
-
+        if($pagina > 1){
+            $inicio = ($cantidad * ($pagina - 1)) +1 ;
+            $cantidad = $cantidad * $pagina;
+        }
         // 
         $query ="SELECT 
                     prod_id, 
@@ -75,16 +70,13 @@ class products extends conexion {
                     prod_update, 
                     prod_update_user
                 FROM " . $this->table . $filtro . $limit;
-
-                //print_r($query);
         $datos = parent::obtenerDatos($query);
         return ($datos);
     }
 
     public function getProduct($id){
         $query = "SELECT * FROM " . $this->table . " WHERE prod_id = '$id'";
-        $datos = parent::obtenerDatos($query);
-        return ($datos);
+        return parent::obtenerDatos($query);
 
     }
 
