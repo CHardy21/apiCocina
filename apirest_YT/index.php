@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es-ES">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API - Prubebas</title>
+    <title>API Rest - CHardy v1.0</title>
     <link rel="stylesheet" href="assets/estilo.css" type="text/css">
 </head>
 <body>
 
 <div  class="container">
-    <h1>Api de pruebas</h1>
+    <h1>API REST - CHardy v1.0</h1>
     <div class="divbody">
         <h3>Auth - login</h3>
+        <p>Para inicar session en la app y tener acceso a la api se deben enviar el USUARIO y su PASSWORD a traves del PostBody en formato JSON a la direccion:<br />
+            http://your-URL.com/apirest/auth
+        </p>
         <code>
            POST  /auth
            <br>

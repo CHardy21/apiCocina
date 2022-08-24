@@ -22,7 +22,7 @@ class conexion {
         }
         $this->conexion = new mysqli($this->server,$this->user,$this->password,$this->database,$this->port);
         if($this->conexion->connect_errno){
-            echo "Algo va mal con la conexion";
+            echo "Algo anda mal. No hemos podido conectar con la DB.";
             die();
         }
 
@@ -86,9 +86,9 @@ class conexion {
             $this->response['totalResults'] = $valor;
             $this->response['item'] = $data;
         }else{
+            // si status != de "ok" 
             $this->response['status'] = "error";
-            $this->response['code'] = $valor;
-            $this->response['message'] = $data;
+            $this->response['detail'] = Array();
         }
         return $this->response;
     }

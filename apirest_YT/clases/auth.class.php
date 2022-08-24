@@ -27,7 +27,7 @@ class auth extends conexion{
                                 if($verificar){
                                         // si se guardo
                                         $result = $_respuestas->response;
-                                        $result["result"] = array(
+                                        $result["detail"] = array(
                                             "login" => "ok",
                                             "token" => $verificar
                                         );
@@ -38,11 +38,11 @@ class auth extends conexion{
                                 }
                             }else{
                                 //el usuario esta inactivo
-                                return $_respuestas->error_login("El usuario esta inactivo");
+                                return $_respuestas->error_login("El usuario está desactivado.");
                             }
                     }else{
                         //la contraseña no es igual
-                        return $_respuestas->error_login("El password es invalido");
+                        return $_respuestas->error_login("El password es inválido");
                     }
             }else{
                 //no existe el usuario
@@ -70,7 +70,7 @@ class auth extends conexion{
         $date = date("Y-m-d H:i");
         $estado = "1";
         //$query = "INSERT INTO users_token (tokenUserId,Token,tokenStatus,Fecha)VALUES('$usuarioid','$token','$estado','$date')";
-        $query = "INSERT INTO users_tokens (tokenId, tokenUserId, token, tokenStatus, tokenCreateAt)VALUES(NULL,'$usuarioid','$token','$estado',current_timestamp()	)";
+        $query = "INSERT INTO users_tokens (token_id, token_userId, token, token_status, token_createAt)VALUES(NULL,'$usuarioid','$token','$estado',current_timestamp()	)";
 
         $verifica = parent::nonQuery($query);
         

@@ -26,8 +26,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
     // Devolvemos una respuesta
     header('Content-Type: application/json');
-    if(isset($datosArray["result"]["error_id"])){
-        $responseCode = $datosArray["result"]["error_id"];
+    if(isset($datosArray["detail"]["id"])){
+        $responseCode = $datosArray["detail"]["id"];
         http_response_code($responseCode);
     }else{
         http_response_code(200);
