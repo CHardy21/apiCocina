@@ -10,7 +10,7 @@ class auth extends conexion{
         $_respuestas = new respuestas;
         $datos = json_decode($json,true);
         if(!isset($datos['usuario']) || !isset($datos["password"])){
-            //error con los campos
+            // Error con los campos
             return $_respuestas->error_400();
         }else{
             //todo esta bien 
@@ -20,14 +20,15 @@ class auth extends conexion{
             $datos = $this->getDatosUsuario($usuario);
             if($datos){
                 //verificar si la contraseña es igual
-                    if($password == $datos[0]['userPassword']){
-                            if($datos[0]['userStatus'] == "1"){
-                                //crear el token
-                                $verificar  = $this->insertarToken($datos[0]['userId']);
+                    if($password == $datos[0]['user_password']){
+                            if($datos[0]['user_status'] == "1"){
+                                //la contraseña es igual, crear el token
+                                $verificar  = $this->insertarToken($datos[0]['user_id']);
                                 if($verificar){
                                         // si se guardo
                                         $result = $_respuestas->response;
                                         $result["result"] = array(
+                                            "login" => "ok",
                                             "token" => $verificar
                                         );
                                         return $result;
@@ -37,15 +38,15 @@ class auth extends conexion{
                                 }
                             }else{
                                 //el usuario esta inactivo
-                                return $_respuestas->error_200("El usuario esta inactivo");
+                                return $_respuestas->error_login("El usuario esta inactivo");
                             }
                     }else{
                         //la contraseña no es igual
-                        return $_respuestas->error_200("El password es invalido");
+                        return $_respuestas->error_login("El password es invalido");
                     }
             }else{
                 //no existe el usuario
-                return $_respuestas->error_200("El usuaro $usuario  no existe ");
+                return $_respuestas->error_login("El usuario $usuario no existe. ");
             }
         }
     }
@@ -53,9 +54,9 @@ class auth extends conexion{
 
 
     private function getDatosUsuario($usuario){
-        $query = "SELECT * FROM users WHERE userName = '$usuario'";
+        $query = "SELECT * FROM users WHERE user_name = '$usuario'";
         $datos = parent::getDatos($query);
-        if(isset($datos[0]["userId"])){
+        if(isset($datos[0]["user_id"])){
             return $datos;
         }else{
             return 0;
@@ -82,8 +83,5 @@ class auth extends conexion{
 
 
 }
-
-
-
 
 ?>
