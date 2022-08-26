@@ -56,7 +56,8 @@ class respuestas{
         $this->response['status'] = "error";
         $this->response['detail'] = array(
             "id" => "200",
-            "error_msg" => $valor
+            "code" => "200",
+            "message" => $valor
         );
         return $this->response;
     }
@@ -66,7 +67,8 @@ class respuestas{
     public function error_500($valor = "Error interno del servidor"){
         $this->response['status'] = "error";
         $this->response['detail'] = array(
-            "id" => "500",
+            "id" => 500,
+            "code" => "500",
             "error_msg" => $valor
         );
         return $this->response;
