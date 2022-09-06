@@ -84,7 +84,7 @@ class conexion {
         if($status=="ok"){
             $this->response['status'] = $status;
             $this->response['totalResults'] = $valor;
-            $this->response['item'] = $data;
+            $this->response['items'] = $data;
         }else{
             // si status != de "ok" 
             $this->response['status'] = "error";
