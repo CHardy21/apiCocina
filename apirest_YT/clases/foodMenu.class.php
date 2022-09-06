@@ -44,7 +44,7 @@ class foodMenu extends conexion
                     prod_price
                 FROM " . $this->table ."
                 INNER JOIN categories categorie_name
-                ON prod_categ=categorie_id "; // ORDER BY categorie_orderMenu
+                ON prod_categ=categorie_id ORDER BY categorie_viewMenu"; // ORDER BY categorie_viewMenu
 
         //print_r($query);
         $query2 = "SELECT * FROM " . $this->table ;
