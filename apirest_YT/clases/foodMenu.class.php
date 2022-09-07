@@ -6,7 +6,7 @@ require_once "respuestas.class.php";
 
 class foodMenu extends conexion {
 
-    // private $table = "products";
+    private $table = "products";
     // private $productoId= "";
     // private $productoNombre = "";
     // private $productoNombreBuscaar = "";
@@ -45,14 +45,24 @@ class foodMenu extends conexion {
                 INNER JOIN categories categorie_name
                 ON prod_categ=categorie_id ORDER BY categorie_viewMenu"; // ORDER BY categorie_viewMenu
 
-        //print_r($query);
-        $query2 = "SELECT * FROM " . $this->table ;
-        //print_r($query2);
+        $query_totalResults = "SELECT * FROM " . $this->table ;
         $datos = parent::getDatos($query);
-        $totalResults = parent::nonQuery($query2);
+        $totalResults = parent::nonQuery($query_totalResults);
+
+        // $query_categ = "SELECT * FROM categories";
+        // $categ = parent::getDatos($query_categ);
+        // $datos = $categ;
+
         $datos = parent::formatData("ok", $totalResults, $datos);
+        //$datos = formatDataMenu($datos);
         return ($datos);
     }
+}
+
+function formatDataMenu($items)
+{
+    
+    return($result);
 }
 
 ?>
