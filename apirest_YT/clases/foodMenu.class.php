@@ -1,32 +1,31 @@
 <?php
+
 require_once "conexion/conexion.php";
 require_once "respuestas.class.php";
 
 
-class foodMenu extends conexion
-{
+class foodMenu extends conexion {
 
-    //912bc00f049ac8464472020c5cd06759
-    private $table = "products";
-    private $productoId= "";
-    private $productoNombre = "";
-    private $productoNombreBuscaar = "";
-    private $productoImagen = "";
-    private $productoCategoria = "";
-    private $productoUnidad = "";
-    private $productoCosto = "";
-    private $productoImportaCosto = "";
-    private $productoPrecio = "";
-    private $productoProductoPrecioNegativo = "";
-    private $productoInventario = "";
-    private $productoInvetarioInfinito = "";
-    private $productoDescripcion = "";
-    private $productoSucursal = "";
-    private $productoIncluyeImpuesto = "";
-    private $productoActivo = "";
-    private $productoUpdateAt = "";
-    private $productoUpdateUsuario = "";
-    private $token = "";
+    // private $table = "products";
+    // private $productoId= "";
+    // private $productoNombre = "";
+    // private $productoNombreBuscaar = "";
+    // private $productoImagen = "";
+    // private $productoCategoria = "";
+    // private $productoUnidad = "";
+    // private $productoCosto = "";
+    // private $productoImportaCosto = "";
+    // private $productoPrecio = "";
+    // private $productoProductoPrecioNegativo = "";
+    // private $productoInventario = "";
+    // private $productoInvetarioInfinito = "";
+    // private $productoDescripcion = "";
+    // private $productoSucursal = "";
+    // private $productoIncluyeImpuesto = "";
+    // private $productoActivo = "";
+    // private $productoUpdateAt = "";
+    // private $productoUpdateUsuario = "";
+    // private $token = "";
     
 
     public function getFoodMenuList()
@@ -44,7 +43,7 @@ class foodMenu extends conexion
                     prod_price
                 FROM " . $this->table ."
                 INNER JOIN categories categorie_name
-                ON prod_categ=categorie_id "; // ORDER BY categorie_orderMenu
+                ON prod_categ=categorie_id ORDER BY categorie_viewMenu"; // ORDER BY categorie_viewMenu
 
         //print_r($query);
         $query2 = "SELECT * FROM " . $this->table ;
@@ -55,4 +54,5 @@ class foodMenu extends conexion
         return ($datos);
     }
 }
+
 ?>
