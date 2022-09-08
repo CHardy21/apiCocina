@@ -43,7 +43,7 @@ class foodMenu extends conexion {
                     prod_price
                 FROM " . $this->table ."
                 INNER JOIN categories categorie_name
-                ON prod_categ=categorie_id ORDER BY categorie_viewMenu"; // ORDER BY categorie_viewMenu
+                ON prod_categ=categorie_id ORDER BY categorie_viewMenu, prod_price"; // ORDER BY categorie_viewMenu
 
         $query_totalResults = "SELECT * FROM " . $this->table ;
         $datos = parent::getDatos($query);
