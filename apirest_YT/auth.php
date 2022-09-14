@@ -26,6 +26,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
     // Devolvemos una respuesta
     header('Content-Type: application/json');
+    header("Access-Control-Allow-Origin: *");
+
     if(isset($datosArray["detail"]["id"])){
         $responseCode = $datosArray["detail"]["id"];
         http_response_code($responseCode);
@@ -37,6 +39,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
 }else{
     header('Content-Type: application/json');
+    header("Access-Control-Allow-Origin: *");
     $datosArray = $_respuestas->error_405();
     echo json_encode($datosArray);
 
