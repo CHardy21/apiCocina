@@ -13,17 +13,17 @@ class sections extends conexion {
     private $token = "";
     
 
-    public function getSectionsList($sectionStatus = 'all', $pagina = 1, $cantidad = 10){
+    public function getSectionsList($status = 'all', $pagina = 1, $cantidad = 10){
         $inicio  = 0 ;
-        $filtro = ""; // " WHERE sections = '$categoria' "
+        $filtro = ""; // " WHERE section_active = '$status' "
         $limit = "";  // " limit $inicio,$cantidad"
 
         // paginacion de resultados
         if ($pagina > 1){ $inicio = ($cantidad * ($pagina - 1)) ;}
         $limit = " limit $inicio,$cantidad";
 
-        if ($sectionStatus != 'all' ){ 
-            $filtro = " WHERE section_active = '$sectionStatus' ";
+        if ($status != 'all' ){ 
+            $filtro = " WHERE section_active = '$status' ";
             if($cantidad == "all") { $limit ="";}
         }else{
             $limit="";
@@ -46,13 +46,15 @@ class sections extends conexion {
         return ($datos);
     }
     
-    public function getProduct($id){
-        $query = "SELECT * FROM " . $this->table . " WHERE prod_id = '$id'";
+    public function getSection($id){
+        $query = "SELECT * FROM " . $this->table . " WHERE section_id = '$id'";
         $datos = parent::getDatos($query);
         return ($datos);
 
     }
 
+
+    
     public function post($json){
         $_respuestas = new respuestas;
         $datos = json_decode($json,true);

@@ -8,51 +8,48 @@ $_secciones = new sections;
 
 if($_SERVER['REQUEST_METHOD'] == "GET"){
 
-    //   * Esta solicitud devuelve el detalle del producto indicado segun su ID
-    //     http://url.com/apirest/products?id=1
+    //   * Esta solicitud devuelve el detalle de la seccion indicada segun su ID
+    //     http://url.com/apirest/sections?id=1
     if(isset($_GET['id'])){
-        $productoid = $_GET['id'];
-        $datosProducto = $_productos->getProduct($productoid);
+        $sectionid = $_GET['id'];
+        $datosSection = $_secciones->getSection($sectionid);
         header("Content-Type: application/json");
-        echo json_encode($datosProducto);
+        header("Access-Control-Allow-Origin: *");
+        echo json_encode($datosSection);
         http_response_code(200);
 
-    // Aqui vamos a listar los productos en base a los PARAMETROS enviados desde la app
-    // Esta solicitud devuelve la pagina solicitada segun la categoria (categ) seleccionada
-    // con una cantidad de registros indicada en pageSize.
-    //   * si categ no es enviada su valor por defecto es 0 y se listarian todos los item existentes
+    // Aqui vamos a listar las secciones en base a los PARAMETROS enviados desde la app
+    // Esta solicitud devuelve la pagina solicitada con una cantidad de registros indicada en pageSize.
+    //   * Si active no es enviada su valor por defecto es 'all' 
+    //      active = all: se listan todas las secciones,
+    //      active = 1  : se listan las secciones activas,
+    //      active = 0  : se listan secciones desactivadas.
     //   * Si page no es enviada su valor por defecto en 1.
     //   * Si pageSize no es enviada su valor por defecto es 10.
-    //   * si categ es enviada y requiere listar la totalidad de item especifique pageSize=all 
+ 
 
-    //    http://url.com/apirest/products?categ=1&page=1&pageSize=10
+    //    http://url.com/apirest/sections?page=1&pageSize=10
 
-    }else if(isset($_GET["id"])){
-        $categoria = $_GET["categ"];
+    }else {
+        $active = 'all';
         $pagina = 1;
         $cantidad = 10;
 
+        if(isset($_GET["active"])){ $active = $_GET["active"]; }
         if(isset($_GET["page"])){ $pagina = $_GET["page"]; }
         if(isset($_GET["pageSize"])){ $cantidad = $_GET["pageSize"]; }
 
-        //print_r("Categoria = ".$categoria." Pagina = ".$pagina." Cantidad = ".$cantidad." " );
-
-        $listaProductos = $_productos->getProductsList( $categoria, $pagina, $cantidad );
+        $listaSecciones = $_secciones->getSectionsList( $active, $pagina, $cantidad );
         header("Content-Type: application/json");
-        echo json_encode($listaProductos);
+        header("Access-Control-Allow-Origin: *");
+        echo json_encode($listaSecciones);
         http_response_code(200);
 
-        } else {
-            // revisar estas lineas ... para ver si son necesarias
-            // $categoria=0;
-            // $pagina=0;
-            // $cantidad=0;
-            // $listaProductos = $_productos->getProductsList( $categoria, $pagina, $cantidad );
-            // header("Content-Type: application/json");
-            // echo json_encode($listaProductos);
-            // http_response_code(200);
         }
     
+
+/// REVISADO HASTA AQUI *********************************
+
 }else if($_SERVER['REQUEST_METHOD'] == "POST"){
     //recibimos los datos enviados
     $postBody = file_get_contents("php://input");

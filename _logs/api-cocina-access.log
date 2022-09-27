@@ -1,0 +1,6 @@
+::1 - - [26/Sep/2022:22:38:56 -0300] "GET / HTTP/1.1" 200 1214
+::1 - - [26/Sep/2022:22:38:57 -0300] "GET /icons/blank.gif HTTP/1.1" 200 148
+::1 - - [26/Sep/2022:22:38:57 -0300] "GET /icons/folder.gif HTTP/1.1" 200 225
+::1 - - [26/Sep/2022:22:38:57 -0300] "GET /favicon.ico HTTP/1.1" 404 305
+::1 - - [26/Sep/2022:22:39:16 -0300] "GET /apirest_YT/ HTTP/1.1" 200 2995
+::1 - - [26/Sep/2022:22:39:16 -0300] "GET /apirest_YT/assets/estilo.css HTTP/1.1" 200 1395
