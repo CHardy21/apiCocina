@@ -20,22 +20,22 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 
     // Aqui vamos a listar las secciones en base a los PARAMETROS enviados desde la app
     // Esta solicitud devuelve la pagina solicitada con una cantidad de registros indicada en pageSize.
-    //   * Si active no es enviada su valor por defecto es 'all' 
-    //      active = all: se listan todas las secciones,
-    //      active = 1  : se listan las secciones activas,
-    //      active = 0  : se listan secciones desactivadas.
+    //   * Si status no es enviada su valor por defecto es 'all' 
+    //      status = all: se listan todas las secciones,
+    //      status = 1  : se listan las secciones activas,
+    //      status = 0  : se listan secciones desactivadas.
     //   * Si page no es enviada su valor por defecto en 1.
     //   * Si pageSize no es enviada su valor por defecto es 10.
  
 
-    //    http://url.com/apirest/sections?page=1&pageSize=10
+    //    http://url.com/apirest/sections?status=1&page=1&pageSize=10
 
     }else {
-        $active = 'all';
+        $status = 'all';
         $pagina = 1;
         $cantidad = 10;
 
-        if(isset($_GET["active"])){ $active = $_GET["active"]; }
+        if(isset($_GET["status"])){ $active = $_GET["status"]; }
         if(isset($_GET["page"])){ $pagina = $_GET["page"]; }
         if(isset($_GET["pageSize"])){ $cantidad = $_GET["pageSize"]; }
 
