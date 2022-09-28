@@ -39,7 +39,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         if(isset($_GET["page"])){ $pagina = $_GET["page"]; }
         if(isset($_GET["pageSize"])){ $cantidad = $_GET["pageSize"]; }
 
-        $listaSecciones = $_secciones->getSectionsList( $active, $pagina, $cantidad );
+        $listaSecciones = $_secciones->getSectionsList( $status, $pagina, $cantidad );
         header("Content-Type: application/json");
         header("Access-Control-Allow-Origin: *");
         echo json_encode($listaSecciones);
