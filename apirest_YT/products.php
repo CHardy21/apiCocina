@@ -14,20 +14,23 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         $productoid = $_GET['id'];
         $datosProducto = $_productos->getProduct($productoid);
         header("Content-Type: application/json");
+        header("Access-Control-Allow-Origin: *");
         echo json_encode($datosProducto);
         http_response_code(200);
 
     // Aqui vamos a listar los productos en base a los PARAMETROS enviados desde la app
-    // Esta solicitud devuelve la pagina solicitada segun la categoria (categ) seleccionada
+    // Esta solicitud devuelve la pagina solicitada segun la seccion (section) seleccionada
     // con una cantidad de registros indicada en pageSize.
-    //   * si categ no es enviada su valor por defecto es 0 y se listarian todos los item existentes
+    //   * si section no es enviada su valor por defecto es 0 y se listarian todos los item existentes
     //   * Si page no es enviada su valor por defecto en 1.
     //   * Si pageSize no es enviada su valor por defecto es 10.
     //   * si categ es enviada y requiere listar la totalidad de item especifique pageSize=all 
 
     //    http://url.com/apirest/products?categ=1&page=1&pageSize=10
 
-    }else if(isset($_GET["categ"])){
+    }else if(isset($_GET["section"])){
+
+        $seccion = $_GET["section"];
         $categoria = $_GET["categ"];
         $pagina = 1;
         $cantidad = 10;
@@ -37,20 +40,23 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 
         //print_r("Categoria = ".$categoria." Pagina = ".$pagina." Cantidad = ".$cantidad." " );
 
-        $listaProductos = $_productos->getProductsList( $categoria, $pagina, $cantidad );
+        $listaProductos = $_productos->getProductsList( $seccion, $categoria, $pagina, $cantidad );
         header("Content-Type: application/json");
+        header("Access-Control-Allow-Origin: *");
         echo json_encode($listaProductos);
         http_response_code(200);
 
         } else {
-            // revisar estas lineas ... para ver si son necesarias
-            // $categoria=0;
-            // $pagina=0;
-            // $cantidad=0;
-            // $listaProductos = $_productos->getProductsList( $categoria, $pagina, $cantidad );
-            // header("Content-Type: application/json");
-            // echo json_encode($listaProductos);
-            // http_response_code(200);
+
+            //revisar estas lineas ... para ver si son necesarias
+            $categoria=0;
+            $pagina=0;
+            $cantidad=0;
+            $listaProductos = $_productos->getProductsList( $categoria, $pagina, $cantidad );
+            header("Content-Type: application/json");
+            header("Access-Control-Allow-Origin: *");
+            echo json_encode($listaProductos);
+            http_response_code(200);
         }
     
 }else if($_SERVER['REQUEST_METHOD'] == "POST"){

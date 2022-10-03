@@ -38,17 +38,17 @@ class products extends conexion {
     private $token = "";
     
 
-    public function getProductsList($categoria = 0, $pagina = 1, $cantidad = 10){
+    public function getProductsList($seccion = 0, $categoria = 0, $pagina = 1, $cantidad = 10){
         $inicio  = 0 ;
-        $filtro = ""; // " WHERE categorie = '$categoria' "
+        $filtro = ""; // " WHERE prod_section = '$seccion' "
         $limit = "";  // " limit $inicio,$cantidad"
 
         // paginacion de resultados
         if ($pagina > 1){ $inicio = ($cantidad * ($pagina - 1)) ;}
         $limit = " limit $inicio,$cantidad";
 
-        if ($categoria != 0 ){ 
-            $filtro = " WHERE prod_categ = '$categoria' ";
+        if ($seccion != 0 ){ 
+            $filtro = " WHERE prod_section = '$seccion' ";
             if($cantidad == "all") { $limit ="";}
         }else{
             $limit="";
