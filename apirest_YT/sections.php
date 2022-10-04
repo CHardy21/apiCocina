@@ -10,6 +10,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 
     //   * Esta solicitud devuelve el detalle de la seccion indicada segun su ID
     //     http://url.com/apirest/sections?id=1
+
     if(isset($_GET['id'])){
         $sectionid = $_GET['id'];
         $datosSection = $_secciones->getSection($sectionid);
@@ -17,6 +18,8 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         header("Access-Control-Allow-Origin: *");
         echo json_encode($datosSection);
         http_response_code(200);
+
+    }else {
 
     // Aqui vamos a listar las secciones en base a los PARAMETROS enviados desde la app
     // Esta solicitud devuelve la pagina solicitada con una cantidad de registros indicada en pageSize.
@@ -26,16 +29,14 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
     //      status = 0  : se listan secciones desactivadas.
     //   * Si page no es enviada su valor por defecto en 1.
     //   * Si pageSize no es enviada su valor por defecto es 10.
- 
 
     //    http://url.com/apirest/sections?status=1&page=1&pageSize=10
-
-    }else {
+    
         $status = 'all';
         $pagina = 1;
         $cantidad = 10;
 
-        if(isset($_GET["status"])){ $active = $_GET["status"]; }
+        if(isset($_GET["status"])){ $status = $_GET["status"]; }
         if(isset($_GET["page"])){ $pagina = $_GET["page"]; }
         if(isset($_GET["pageSize"])){ $cantidad = $_GET["pageSize"]; }
 

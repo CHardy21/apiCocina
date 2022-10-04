@@ -37,11 +37,11 @@ class sections extends conexion {
                     section_nro_prod
                 FROM " . $this->table . $filtro . $limit;
 
-        //print_r($query);
-        $query2 = "SELECT * FROM " . $this->table . $filtro ;
-        //print_r($query2);
         $datos = parent::getDatos($query);
+
+        $query2 = "SELECT * FROM " . $this->table . $filtro ;
         $totalResults = parent::nonQuery($query2);
+
         $datos = parent::formatData("ok", $totalResults,$datos);
         return ($datos);
     }
@@ -49,6 +49,8 @@ class sections extends conexion {
     public function getSection($id){
         $query = "SELECT * FROM " . $this->table . " WHERE section_id = '$id'";
         $datos = parent::getDatos($query);
+        $totalResults = parent::nonQuery($query);
+        $datos = parent::formatData("ok", $totalResults, $datos);
         return ($datos);
 
     }

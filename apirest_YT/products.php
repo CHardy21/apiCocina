@@ -26,7 +26,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
     //   * Si pageSize no es enviada su valor por defecto es 10.
     //   * si categ es enviada y requiere listar la totalidad de item especifique pageSize=all 
 
-    //    http://url.com/apirest/products?categ=1&page=1&pageSize=10
+    //    http://url.com/apirest/products?seccion=1&categ=1&page=1&pageSize=10
 
     }else if(isset($_GET["section"])){
 
@@ -59,6 +59,9 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
             http_response_code(200);
         }
     
+// cuando vea las siguientes opciones del crud recordar agregar la opcion de de que si la seccion esta desactivada 
+// no deberia estar activo tampoco el producto ni su categoria
+
 }else if($_SERVER['REQUEST_METHOD'] == "POST"){
     //recibimos los datos enviados
     $postBody = file_get_contents("php://input");
